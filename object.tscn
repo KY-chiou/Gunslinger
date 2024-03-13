@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwjuem6haj7un"]
+
+[ext_resource type="Script" path="res://object.gd" id="1_rk4it"]
+[ext_resource type="Texture2D" uid="uid://dfha3488idmkk" path="res://Resource/Barrel/Idle/1.png" id="2_jgq10"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sdewm"]
+friction = 0.0
+bounce = 0.2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rrgnt"]
+size = Vector2(128.5, 131)
+
+[node name="Object" type="RigidBody2D"]
+input_pickable = true
+mass = 0.1
+physics_material_override = SubResource("PhysicsMaterial_sdewm")
+gravity_scale = 0.8
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_rk4it")
+hp = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("2_jgq10")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_rrgnt")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="input_event" from="." to="." method="_on_input_event"]
